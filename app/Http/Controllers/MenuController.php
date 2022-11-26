@@ -10,11 +10,12 @@ class MenuController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $menu = Menu::all();
+        return view('menu.index', $menu);
     }
 
     /**
@@ -31,11 +32,13 @@ class MenuController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        Menu::create($data);
+        return redirect()->route('menu.index');
     }
 
     /**
@@ -65,21 +68,24 @@ class MenuController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Menu  $menu
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function update(Request $request, Menu $menu)
     {
-        //
+        $data = $request->all();
+        $menu->update($data);
+        return redirect()->route('menu.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Menu  $menu
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function destroy(Menu $menu)
     {
-        //
+        Menu::destroy($menu->id);
+        return redirect()->route('menu.index');
     }
 }
