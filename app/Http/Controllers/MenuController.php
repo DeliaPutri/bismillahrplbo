@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Subdivision;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -15,7 +16,8 @@ class MenuController extends Controller
     public function index()
     {
         $menu = Menu::all();
-        return view('menu.index', $menu);
+        $subdivision = Subdivision::all();
+        return view('menu.index', $menu, $subdivision);
     }
 
     /**
